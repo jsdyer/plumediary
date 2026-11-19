@@ -1,16 +1,37 @@
 {
-  "id": "coolcode-tool-template",
-  "title": "CoolCode Tool Starter",
-  "description": "A browser-only example that trims lines and removes exact duplicates.",
-  "category": "security",
-  "tags": ["text", "lines", "duplicates"],
-  "icon": "scan-search",
-  "url": "/coolcode-tool-template/",
-  "source": "https://github.com/jsdyer/coolcode-tool-template",
+  "id": "plumediary",
+  "title": "Plume Diary",
+  "description": "Compare satellite views of the Fraser River mouth with daily flow measured upstream at Hope.",
+  "category": "places",
+  "tags": [
+    "Fraser River",
+    "BC",
+    "NASA",
+    "hydrology"
+  ],
+  "icon": "layers",
+  "url": "/plumediary/",
+  "source": "https://github.com/jsdyer/plumediary",
   "hosting": "project",
   "access": "browser",
   "data_info": {
-    "mode": "local",
-    "detail": "The browser reads the text you paste and compares its lines."
+    "mode": "snapshot",
+    "detail": "NASA Terra/MODIS true-colour images show the delta at the same scale. Water Survey of Canada supplies daily mean discharge upstream.",
+    "cadence": "Monthly",
+    "probes": [
+      {
+        "label": "Data retrieved",
+        "url": "https://coolcode.ca/plumediary/data/edition.json",
+        "path": [
+          "retrieved"
+        ],
+        "count_at": {
+          "path": [
+            "count"
+          ],
+          "unit": "satellite scenes"
+        }
+      }
+    ]
   }
 }

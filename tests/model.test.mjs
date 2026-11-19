@@ -1,21 +1,15 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cleanLines } from '../web/model.mjs';
-test('trims, removes blanks and preserves first-seen order', () => {
-  assert.deepEqual(cleanLines('  Halifax\nLangley\nHalifax\n\nVancouver  '), {
-    text: 'Halifax\nLangley\nVancouver', count: 3, removed: 1,
-  });
+import test from 'node:test';
+import {earlierDay,flowAt,juneRank} from '../web/model.mjs';
+test('upstream offsets cross month boundaries in UTC and preserve missing values',()=>{
+  assert.equal(earlierDay('2021-06-01',3),'2021-05-29');
+  assert.equal(flowAt({'2021-05-29':0},'2021-06-01',3),0);
+  assert.equal(flowAt({},'2021-06-01',3),null);
 });
-test('supports Windows and old Mac line endings', () => {
-  assert.equal(cleanLines('a\r\nb\ra').text, 'a\nb');
+
+test('rank uses all thirty valid June observations and includes ties',()=>{
+  const flow=Object.fromEntries(Array.from({length:30},(_,i)=>['2021-06-'+String(i+1).padStart(2,'0'),i<9?6970:7650]));
+  assert.deepEqual(juneRank(flow,6970),{atOrBelow:9,total:30,percent:30});
+  delete flow['2021-06-01'];
+  assert.equal(juneRank(flow,6970),null);
 });
-test('empty text and whitespace produce an empty result', () => {
-  assert.deepEqual(cleanLines(' \n\t'), { text: '', count: 0, removed: 0 });
-});
-test('preserves case and Unicode', () => {
-  assert.equal(cleanLines('Québec\nquébec\n東京\nQuébec').text, 'Québec\nquébec\n東京');
-});
-test('treats markup as ordinary text', () => {
-  assert.equal(cleanLines('<script>alert(1)</script>\n<script>alert(1)</script>').text, '<script>alert(1)</script>');
-});
-test('rejects non-text input', () => { assert.throws(() => cleanLines(null), TypeError); });
