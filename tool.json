@@ -1,7 +1,7 @@
 {
   "id": "plumediary",
   "title": "Plume Diary",
-  "description": "Compare satellite views of the Fraser River mouth with daily flow measured upstream at Hope.",
+  "description": "Compare the Fraser River’s visible plume on two satellite dates and test whether earlier upstream flows change the story.",
   "category": "places",
   "tags": [
     "Fraser River",

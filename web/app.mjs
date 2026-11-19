@@ -70,6 +70,28 @@ start((data) => {
             fmt(Math.abs(b - a), 0) +
             ' m³/s ' +
             (b > a ? 'more.' : 'less.');
+    const comparisons = Array.from(el('lag').options, option => {
+      const days = Number(option.value);
+      const left = flowAt(data.flow, dates[0], days);
+      const right = flowAt(data.flow, dates[1], days);
+      return {label: option.text, left, right, change: left == null || right == null ? null : right - left};
+    });
+    const changes = comparisons.map(row => row.change).filter(Number.isFinite);
+    let conclusion = 'Some offsets lack comparable observations.';
+    if (dates[0] === dates[1]) conclusion = 'Choose two different image dates to compare the flows.';
+    else if (changes.length === comparisons.length) {
+      if (Math.min(...changes) < 0 && Math.max(...changes) > 0) conclusion = 'Which image has the higher upstream flow reverses when you change the assumed travel time.';
+      else if (changes.every(change => change === 0)) conclusion = 'Both gauge days have equal discharge at every tested offset.';
+      else {
+        const side = changes.some(change => change > 0) ? 'right' : 'left';
+        conclusion = 'The ' + side + '-hand gauge day has ' +
+          (changes.includes(0) ? 'equal or higher flow' : 'higher flow') + ' at all five tested offsets.';
+      }
+    }
+    el('lag-conclusion').textContent = conclusion;
+    table('sensitivity', ['Gauge timing', 'Left flow (m³/s)', 'Right flow (m³/s)', 'Right minus left (m³/s)'],
+      comparisons.map(row => [row.label, fmt(row.left, 0), fmt(row.right, 0),
+        row.change === null ? 'Unavailable' : (row.change > 0 ? '+' : '') + fmt(row.change, 0)]));
     table(
       'rows',
       ['Scene date', 'Gauge date', 'Discharge (m³/s)', 'June days at or below'],

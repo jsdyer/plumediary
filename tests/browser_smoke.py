@@ -33,6 +33,11 @@ def main():
                 assert page.locator('img.scene').count() == 2
                 page.wait_for_function("Array.from(document.images).every(i => i.complete && i.naturalWidth === 680)")
                 assert '680 m³/s more' in page.locator('#result').inner_text()
+                assert page.locator('#sensitivity tbody tr').count() == 5
+                assert "higher flow" in page.locator('#lag-conclusion').inner_text()
+                page.locator('#right').select_option('2021-06-14')
+                assert "reverses" in page.locator('#lag-conclusion').inner_text()
+                page.locator('#right').select_option('2021-06-28')
                 page.locator('#swap').click()
                 assert '680 m³/s less' in page.locator('#result').inner_text()
                 page.locator('#lag').select_option('1')

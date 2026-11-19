@@ -3,7 +3,7 @@
 Compare satellite views of the Fraser River mouth with daily flow measured upstream at Hope. [Open Plume Diary](https://coolcode.ca/plumediary/).
 
 <!-- coolcode:guide -->
-Compare June 21 and June 28, 2021 at the same image scale. Hope measured 6,970 and 7,650 m³/s on those dates. Try the earlier-flow selector to see how an assumed travel time changes the comparison.
+On June 21 and 28, 2021 the Hope gauge was 680 m³/s higher on the second date. Test all five travel-time assumptions, then compare the green-brown coastal band on June 21 with the lighter patch extending southwest on June 28. The June 14 image shows how cloud can hide the river mouth.
 <!-- /coolcode:guide -->
 
 ## Data and interpretation
