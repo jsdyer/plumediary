@@ -17,6 +17,7 @@
     <main id="main">
       <h1>{{TITLE}}</h1>
       <p class="lead">{{DESCRIPTION}}</p>
+      <p>The plume is the patch of river water spreading into the Strait of Georgia. Look for its edge where coastal water changes colour. Compare two photos, then see whether the upstream flow comparison holds if the water took longer to reach the coast.</p>
       <p class="meta" id="meta"></p>
       <p id="loading" role="status">Loading the published records…</p>
       <noscript
@@ -38,6 +39,12 @@
           offshore, the position of cloud and the coast.
         </p>
         <button id="swap" type="button">Swap the dates</button>
+      </section>
+      <section>
+        <h2>Does the flow comparison depend on travel time?</h2>
+        <p id="lag-conclusion"></p>
+        <div class="table" id="sensitivity"></div>
+        <p>Each row keeps your two satellite dates fixed and moves both Hope gauge dates earlier by the same amount. The actual travel time is unknown.</p>
       </section>
       <section>
         <h2>Daily flow at Hope</h2>
